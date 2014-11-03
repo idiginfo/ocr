@@ -13,7 +13,10 @@ def ocr():
     form = OcrForm()
     if form.validate_on_submit():
         from businesslogic import tesseractdata
-        ocrvalue = tesseractdata.tesseractinput(form.identifier.data,form.url.data)
+        iden = form.identifier.data
+        urlloc = form.url.data
+        cropit = request.form['crop']
+        ocrvalue = tesseractdata.tesseractinput(iden,urlloc,cropit)
         # bagofwords = " ".join([x for x in ocrvalue.split(" ") if len(x)>2 and len(x)<15])
         if request.form['response'] == "html":
             return render_template("ocr.html",form=form,ocrvalue=ocrvalue)
