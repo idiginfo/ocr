@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<p><em>OCR: </em></p>
+{% if form %}
+<div>  ID: {{form.identifier.data}}<br><br>  URL: {{form.url.data}}<br><br>
+</div>
+{% if ocrvalue %}
+<div class="ocrdata">{{ocrvalue}}
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}
+
