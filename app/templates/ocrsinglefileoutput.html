@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <p><em>OCR: </em></p>
-{% if form %}
-<div>  ID: {{form.identifier.data}}<br><br>  URL: {{form.url.data}}<br><br>
+<div>  ID: {{iden}}<br><br>  URL: {{url}}<br><br>
 </div>
 {% if ocrvalue %}
 <div class="ocrdata">{{ocrvalue}}
 </div>
-<div class="bagofwords">{{bagofwords}}
-</div>
-{% endif %}
+<!-- <div class="bagofwords">{{bagofwords}}
+</div> -->
 {% endif %}
 {% endblock %}
-
+{% block scripts %} activateMenu("ocr") {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+<div class="jumbotron">
+	<h1>iDigInfo - OCR</h1>
+	<p>
+		Museums across the U. S. have been seeking new ways to cost
+		effectively transcribe the label information associated with their
+		specimen collections in order to maximize everyone's access to
+		valuable research data. Digitization methods are often relatively
+		slow, labor-intensive, and expensive. New methods, such as OCR, are
+		being explored to reduce these costs. Read more <a
+			href="https://www.idigbio.org/sites/default/files/poster-files/ocr_dpaulposter.pdf"
+			target="_blank">here..</a>
+	</p>
+	<p>
+		<a href="/ocr" class="btn btn-success btn-lg">Get started today</a>
+	</p>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<h2>Single file</h2>
+		<p>Use this tool to OCR one single file at a time. You can either give a URL or upload the image to OCR. Pass in a valid identifier for the image.</p>
+		<p>
+			<a href="/ocr" class="btn btn-success">Get started &raquo;</a>
+		</p>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<h2>Multiple files</h2>
+		<p>You can use this to OCR more than one file at a time.</p>
+		<p>
+			<a href="/ocr" class="btn btn-success">Get started &raquo;</a>
+		</p>
+	</div>
+	<div class="clearfix visible-lg-block"></div>
+</div>
+{% endblock %}
+

@@ -1,27 +1,47 @@
-from flask import render_template, flash, redirect, request, jsonify
+from flask import render_template, flash, redirect, request, jsonify, session, get_flashed_messages
 from app import app
 from .forms import OcrForm
 
 @app.route('/')
-@app.route('/index')
-def index():
-    form = OcrForm()
-    return render_template("index.html",form=form,)
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
-@app.route('/ocr', methods=['GET', 'POST'])
+@app.route('/ocr')
+def index():
+    return render_template("ocrsinglefile.html")
+
+@app.route('/ocroutput', methods=['GET', 'POST'])
 def ocr():
-    form = OcrForm()
-    if form.validate_on_submit():
-        from businesslogic import tesseractdata
-        iden = form.identifier.data
-        urlloc = form.url.data
-        cropit = request.form['crop']
-        ocrvalue = tesseractdata.tesseractinput(iden,urlloc,cropit)
-        # bagofwords = " ".join([x for x in ocrvalue.split(" ") if len(x)>2 and len(x)<15])
-        if request.form['response'] == "html":
-            return render_template("ocr.html",form=form,ocrvalue=ocrvalue)
+    from businesslogic import tesseractdata
+    iden = request.form.get('identifier')
+    urlloc = request.form.get('url')  # .data
+    fileupload = request.files['file']
+    cropit = request.form.get('crop')
+    ocrvalue = tesseractdata.tesseractinput(iden, urlloc, fileupload, cropit)
+    response = request.form.get('response')
+    if request.form.get('response') == "html":
+        if not ocrvalue:
+            return render_template('ocrsinglefile.html')
         else:
-            outvalue = {'identifier':form.identifier.data,'ocr':ocrvalue}
-            return jsonify(outvalue)
-    return render_template('index.html', 
-                           form=form,)
+            return render_template("ocrsinglefileoutput.html", iden=iden, url=urlloc, ocrvalue=ocrvalue)
+    else:
+        flaskmessages = get_flashed_messages()
+        if not ocrvalue:
+            outvalue = {'identifier':iden, 'ocr':'error', 'messages':flaskmessages}
+        else:
+            outvalue = {'identifier':iden, 'ocr':ocrvalue, 'messages':flaskmessages}
+           
+    session.pop('_flashes',None)
+    return jsonify(outvalue)
+    # return render_template('ocrsinglefile.html', 
+    #               form=form,)
+
+@app.route('/batchoutput', methods=['GET', 'POST'])
+def batchocr():
+    id = "http://www.example.com"
+    return render_template('confirmbatch.html', id=id)
+    
+@app.route('/batch')
+def batch():
+    return render_template("batch.html")

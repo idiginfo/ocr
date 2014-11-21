@@ -4,5 +4,6 @@ from wtforms.validators import DataRequired
 
 class OcrForm(Form):
     identifier = StringField('id', validators=[DataRequired()])
-    url = StringField('url', validators=[DataRequired()])
+    url = StringField('url')
+    
 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <form action="batchocr" method="post" name="batchocr" enctype=multipart/form-data>
+      <h3>Submit a json file for batch processing OCR</h3>
+      <input type=file name=file required>
+      <p><input type="submit" value=" OCR this!! "></p>
+  </form>
+{% endblock %}
+{% block scripts %}
+activateMenu("batch")
+{% endblock %}
+
+
+

@@ -6,7 +6,13 @@ import os
 import subprocess
 import requests
 from businesslogic import cropthis
+from werkzeug import secure_filename
+from flask import flash,ext
+from app import app
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 def tesseractthis(identifier, fileloc,cropit):
     """
@@ -19,23 +25,47 @@ def tesseractthis(identifier, fileloc,cropit):
             cropthis.cropthis(fileloc,0,8)
         elif cropit == "left":
             cropthis.cropthis(fileloc,15,0)
-        subprocess.call(["tesseract",fileloc, outloc])
-        return open(outloc + ".txt", "r").read().replace("\n"," ")
+        rtncode = subprocess.call(["tesseract",fileloc, outloc])
+        if rtncode != 0:
+            flash('Exception in OCR given file.')
+            return False
+        else:
+            return open(outloc + ".txt", "r").read().replace("\n"," ")
     else:
         return "not a jpg file"
 
 
-def tesseractinput(identifier, url,cropit):
+def tesseractinput(identifier, urlloc,fileupload,cropit):
     """
     entry point for business logic
     """
-    fileloc = "images/" + identifier + ".jpg"
-    fileloc = os.path.abspath(fileloc)
-    filehandler = open(fileloc, "wb")
-    if os.path.isfile(url):
-        filehandler.write(open(url,"rb").read())
-        filehandler.close()
-    else:
-        filehandler.write(requests.get(url).content)
-        filehandler.close()
-    return tesseractthis(identifier, fileloc,cropit)
+    try:
+        filename = secure_filename(identifier+".jpg")
+        fileloc = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        filehandler = open(fileloc, "wb")
+        if not urlloc and (not fileupload or fileupload.filename==''):
+            flash('URL or File upload is required')
+            return False
+        elif fileupload and allowed_file(fileupload.filename):
+            fileupload.save(fileloc)
+            return tesseractthis(identifier, fileloc,cropit)
+        elif urlloc:
+            try:    
+                resp = requests.get(urlloc)
+                if resp.status_code == 200:
+                    filehandler.write(resp.content)
+                    filehandler.close()
+                    return tesseractthis(identifier, fileloc,cropit)
+                else:
+                    flash('Image not found at given URL')
+                    flash('Response code: '+str(resp.status_code))
+                    return False
+            except:
+                flash('Invalid URL')
+                return False        
+        else:
+            flash('Invalid input')
+            return False
+    except:
+        flash('Something went wrong. Contact admin.')
+        return False
