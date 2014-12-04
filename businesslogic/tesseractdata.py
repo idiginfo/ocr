@@ -9,6 +9,7 @@ from businesslogic import cropthis
 from werkzeug import secure_filename
 from flask import flash,ext
 from app import app
+import traceback
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -18,7 +19,7 @@ def tesseractthis(identifier, fileloc,cropit):
     """
     entry point for ocr file we have
     """
-    outloc = "ocrd/" + identifier
+    outloc = app.config['OUTPUT_FOLDER'] + identifier
     outloc = os.path.abspath(outloc)
     if fileloc.endswith(".jpg"):
         if cropit == "top":
@@ -30,7 +31,7 @@ def tesseractthis(identifier, fileloc,cropit):
             flash('Exception in OCR given file.')
             return False
         else:
-            return open(outloc + ".txt", "r").read().replace("\n"," ")
+            return open(outloc + ".txt", "rb").read().decode('utf-8').replace("\n"," ")
     else:
         return "not a jpg file"
 
@@ -41,7 +42,7 @@ def tesseractinput(identifier, urlloc,fileupload,cropit):
     """
     try:
         filename = secure_filename(identifier+".jpg")
-        fileloc = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        fileloc = os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         filehandler = open(fileloc, "wb")
         if not urlloc and (not fileupload or fileupload.filename==''):
             flash('URL or File upload is required')
@@ -66,6 +67,6 @@ def tesseractinput(identifier, urlloc,fileupload,cropit):
         else:
             flash('Invalid input')
             return False
-    except:
-        flash('Something went wrong. Contact admin.')
+    except Exception as e:
+        flash('Something went wrong. Contact admin.')#+str(e)+traceback.format_exc())
         return False

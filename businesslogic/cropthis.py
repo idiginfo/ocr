@@ -4,7 +4,7 @@ this is business logic for cropping file
 """
 import subprocess
 import os
-
+from flask import flash
 
 def cropthis(imageloc, xval, yval):
     """
@@ -25,14 +25,15 @@ def cropthis(imageloc, xval, yval):
         percenty = (yval / 100) * int(dim[1])
 #         rtnval = subprocess.call(['convert', oldfilename, '-crop',
 #                                   '+{0}+{1}'.format(percentx, percenty),'-brightness-contrast', '0x50',imageloc])
+#        rtnval = subprocess.call(['convert', oldfilename, '-crop',
+#                                  '+{0}+{1}'.format(percentx, percenty),'-level', '50x100%',imageloc])
+#        raise Exception('x and y '+str(percentx)+" "+str(percenty)+" "+str(xval)+" "+str(yval)+" "+dim[0]+" "+dim[1])
         rtnval = subprocess.call(['convert', oldfilename, '-crop',
-                                  '+{0}+{1}'.format(percentx, percenty),'-level', '50x100%',imageloc])
-#         rtnval = subprocess.call(['convert', oldfilename, '-crop',
-#                                   '+{0}+{1}'.format(percentx, percenty),imageloc])
+                                   '+{0}+{1}'.format(percentx, percenty),imageloc])
         if rtnval != 0:
             return False
         else:
             return True
     except Exception as cropthis_exception:
-        print(cropthis_exception)
+        flash('Something went wrong. Contact admin.'+str(cropthis_exception))
         return False

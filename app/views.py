@@ -15,12 +15,18 @@ def index():
 def ocr():
     from businesslogic import tesseractdata
     iden = request.form.get('identifier')
+    if iden is None: iden = request.args.get('identifier')
     urlloc = request.form.get('url')  # .data
-    fileupload = request.files['file']
+    if urlloc is None: urlloc = request.args.get('url')
+    # return jsonify({'iden':iden,'urloc':urlloc})
+    fileupload = request.files.get('file',None)
+    # return jsonify({'iden':iden,'urloc':urlloc,'fileupload':fileupload})
     cropit = request.form.get('crop')
+    if cropit is None: cropit = request.args.get('crop')
     ocrvalue = tesseractdata.tesseractinput(iden, urlloc, fileupload, cropit)
     response = request.form.get('response')
-    if request.form.get('response') == "html":
+    if response is None: response = request.args.get('response')
+    if response == "html":
         if not ocrvalue:
             return render_template('ocrsinglefile.html')
         else:
