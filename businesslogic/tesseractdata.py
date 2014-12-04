@@ -5,15 +5,11 @@ this is main business logic file
 import os
 import subprocess
 import requests
-from businesslogic import cropthis
+from businesslogic import cropthis,utils
 from werkzeug import secure_filename
 from flask import flash,ext
 from app import app
 import traceback
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 def tesseractthis(identifier, fileloc,cropit):
     """
@@ -47,7 +43,7 @@ def tesseractinput(identifier, urlloc,fileupload,cropit):
         if not urlloc and (not fileupload or fileupload.filename==''):
             flash('URL or File upload is required')
             return False
-        elif fileupload and allowed_file(fileupload.filename):
+        elif fileupload and utils.allowed_file(fileupload.filename):
             fileupload.save(fileloc)
             return tesseractthis(identifier, fileloc,cropit)
         elif urlloc:
