@@ -1,23 +1,34 @@
-{  
-"header":{   
-   "Total":3,
-   "Complete":0,
-   "status":"In progress"},
-   "list":{  
-      "00123":{  
-         "url":"http://someurl.com",
-         "complete":"yes",
-         "ocr":"some text"
-      },
-      "00124":{  
-         "url":"http://someurl.com",
-         "complete":"no",
-         "ocr":""
-      },
-	"00125":{  
-         "url":"http://someurl.com",
-         "complete":"no",
-         "ocr":""
-      }
-   }
+{
+  "header": {
+    "Complete": 1,
+    "Total": 3,
+    "status": "In progress"
+  },
+  "list": {
+    "000009501": {
+      "complete": "no",
+      "crop": "left",
+      "ocr": "",
+      "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009501.jpg&ImageType=jpeg&inbrowser=yes"
+    },
+    "000009502": {
+      "complete": "no",
+      "crop": "left",
+      "ocr": "",
+      "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009502.jpg&ImageType=jpeg&inbrowser=yes"
+    },
+    "000009503": {
+      "complete": "no",
+      "crop": "left",
+      "ocr": "",
+      "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009503.jpg&ImageType=jpeg&inbrowser=yes"
+    },
+    "000009504": {
+      "complete": "yes",
+      "crop": "left",
+      "messages": [],
+      "ocr": "   R. K. Godfrey Herbarium (FSU)  lll lllll Ill l                 FLORA OF FLORIDA  Pinus pa/ustris Mill.     PUTNAM C0: Common in sandy soils assocmted with Turkey Oak/Longleaf Pine/Wirgrass community just E of Hook Luke and W of Deep Luke; 0.3 miles E of Swisher Lake Trail, 1 mile S of SR 100. 3 miles SE of Putnam Hall, Fl, & 6 miles SW of Florahome, Fl. Sec 12. R23E. T95; Putnam Hall Quad       CCCIl R. Slaughter 7 Date: 24 June 2001 n0.212,67}{       ",
+      "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009504.jpg&ImageType=jpeg&inbrowser=yes"
+    }
+  }
 }

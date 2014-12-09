@@ -4,20 +4,29 @@
    "Complete":0,
    "status":"Submitted"},
    "list":{  
-      "00123":{  
-         "url":"http://someurl.com",
+      "000009501":{  
+         "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009501.jpg&ImageType=jpeg&inbrowser=yes",
          "complete":"no",
-         "ocr":""
+         "ocr":"",
+         "crop":"left"
       },
-      "00124":{  
-         "url":"http://someurl.com",
+      "000009502":{  
+         "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009502.jpg&ImageType=jpeg&inbrowser=yes",
          "complete":"no",
-         "ocr":""
+         "ocr":"",
+         "crop":"left"
       },
-	"00125":{  
-         "url":"http://someurl.com",
+	"000009503":{  
+         "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009503.jpg&ImageType=jpeg&inbrowser=yes",
          "complete":"no",
-         "ocr":""
+         "ocr":"",
+         "crop":"left"
+      },
+      "000009504":{  
+         "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009504.jpg&ImageType=jpeg&inbrowser=yes",
+         "complete":"no",
+         "ocr":"",
+         "crop":"left"
       }
    }
 }
