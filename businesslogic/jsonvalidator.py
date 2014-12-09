@@ -21,6 +21,7 @@ def validate_json(fileupload):
         fileupload.save(filetemploc)
         feedback = validate_json_format(filetemploc)
         if not feedback:
+            fileupload.seek(0)
             fileupload.save(fileloc)
             os.remove(filetemploc)
             return fileupload.filename
