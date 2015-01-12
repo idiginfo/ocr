@@ -2,7 +2,7 @@
 This is place where you define all URL types application can be accessed with
 """
 
-from flask import render_template, flash, request
+from flask import render_template, flash, request, redirect
 from flask import jsonify, session, get_flashed_messages, abort
 from app import app
 from businesslogic import jsonvalidator, tesseractdata
@@ -79,8 +79,11 @@ def batchocr():
         flash('require a json file to start batch ocr')
         return render_template("batch.html")
     if fileupload.filename in app.config['DISALLOWED_JSON_FILENAME']:
-        flash('Cannot accept this file name. Please change your file name.')
+        flash("Cannot accept this file name. File name already exist."
+              "Please change your file name and resubmit.")
         return render_template("batch.html")
+    else:
+        app.config['DISALLOWED_JSON_FILENAME'].append(fileupload.filename)
     feedback = jsonvalidator.validate_json(fileupload)
     if feedback:
         iden = "http://ocr.dev.morphbank.net/status/" + feedback
@@ -111,3 +114,15 @@ def status(filename):
         return jsonify(json.load(open(filealtpath, 'r')))
     else:
         abort(404)
+
+
+@app.route('/status', methods=['GET', 'POST'])
+def directorylisting():
+    """
+    route for directory listing and status form
+    """
+    iden = request.form.get('file name')
+    if iden is not None:
+        return redirect("/status/" + iden)
+    return render_template("status.html",
+                           displayfiles=app.config['DIRECTORY_LISTING'])

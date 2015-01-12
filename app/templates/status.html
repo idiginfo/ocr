@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<form class="form-horizontal" role="form" action="status" method="post" name="ocr" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="file name">Please enter file name</label>
+	    			<input type="text" class="form-control" name="file name" id="file name" placeholder="enter file name" required>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success">Submit</button>
+				</div>
+		</form>
+	</div>
+	<div class="col-lg-12">
+	{% if displayfiles %}
+	<h3>List of batch files submitted:</h3> 
+	{% endif %}
+		{% for file in displayfiles %}
+		</ul>
+			<li><a href={{ file }}>{{ file.split("/")[-1] }}</a></li>
+		</ul>
+		 {% endfor %}
+	</div>
+</div>
+{% endblock %}
+{% block scripts %}
+activateMenu("status")
+{% endblock %}
+
+
+

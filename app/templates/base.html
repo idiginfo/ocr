@@ -30,6 +30,7 @@
 					<li class="active" id="homemenu"><a href="/home">Home</a></li>
 					<li id="ocrmenu"><a href="/ocr">OCR</a></li>
 					<li id="batchmenu"><a href="/batch">Batch OCR</a></li>
+					<li id="statusmenu"><a href="/status">Status</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -42,6 +43,20 @@
 			<li>{{ message }}</li> {% endfor %}
 		</ul>
 		{% endif %} {% endwith %} {% block content %}{% endblock %}
+	</div>
+	<div class="clearfix visible-xs-block"></div>
+	<div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<p class="navbar-text">
+			<center>
+
+				Developed by <a
+					href="https://www.linkedin.com/pub/shiva-krishna-imminni/22/8bb/a1b">Shiva
+					Krishna Imminni</a> for <a href="https://www.idigbio.org/">iDigBio</a>
+				and <a href="https://www.idiginfo.org/projects">iDigInfo</a>.
+			</center>
+			</p>
+		</div>
 	</div>
 	<script src="http://code.jquery.com/jquery.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
