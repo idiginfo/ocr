@@ -1,8 +1,8 @@
 {
   "header": {
-    "Complete": 1,
-    "Total": 3,
-    "status": "In progress"
+    "complete": 1,
+    "total": 3,
+    "status": "in progress"
   },
   "subjects": {
     "000009501": {

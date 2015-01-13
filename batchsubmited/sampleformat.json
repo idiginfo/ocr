@@ -1,30 +1,30 @@
 {  
 "header":{   
-   "Total":3,
-   "Complete":0,
-   "status":"Submitted"},
+   "total":4,
+   "complete":0,
+   "status":"submitted"},
    "subjects":{  
       "000009501":{  
          "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009501.jpg&ImageType=jpeg&inbrowser=yes",
-         "complete":"no",
+         "status":"pending",
          "ocr":"",
          "crop":"left"
       },
       "000009502":{  
          "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009502.jpg&ImageType=jpeg&inbrowser=yes",
-         "complete":"no",
+         "status":"pending",
          "ocr":"",
          "crop":"left"
       },
 	"000009503":{  
          "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009503.jpg&ImageType=jpeg&inbrowser=yes",
-         "complete":"no",
+         "status":"pending",
          "ocr":"",
          "crop":"left"
       },
       "000009504":{  
          "url":"http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009504.jpg&ImageType=jpeg&inbrowser=yes",
-         "complete":"no",
+         "status":"pending",
          "ocr":"",
          "crop":"left"
       }

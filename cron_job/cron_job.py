@@ -21,22 +21,40 @@ def cron_jobs():
     request to single file ocr url, saving the ocr returned
     and dumping back the json file
     """
-    import logging
+    import logging, time
     logger = logging.getLogger("main")
     mainhandler = logging.FileHandler("/home/shiva/logs/cron.out", mode="a")
     logger.addHandler(mainhandler)
     logger.setLevel(logging.DEBUG)
+    import utils
+    version = utils.get_tesseract_version()
+    logger.info(["tesseract version:",version])
     for root, dirnames, files in os.walk(BATCHSUBMITED):
         for file in files:
             try:
+                starttime = time.strftime("%c")
+                modifiedtime = time.strftime("%c") 
                 filepath = os.path.join(BATCHSUBMITED, file)
                 filealtpath = os.path.join(BATCHPROCESSED, file)
                 if file == 'sampleformat.json':
                     continue
                 logger.info([file])
                 jsonobj = json.load(open(filepath, 'r'))
-                logger.info([file, 'Modifying status to In progress'])
-                jsonobj['header']['status'] = "In progress"
+                logger.info([file, 'Constructing Header'])
+                jsonobj['header'] = {}
+                logger.info([file, 'adding start and modified time to header'])
+                jsonobj['header']['start time'] = starttime
+                jsonobj['header']['modified time'] = modifiedtime
+                jsonobj['header']
+                logger.info([file, 'adding status to in progress'])
+                jsonobj['header']['status'] = "in progress"
+                logger.info([file, 'adding total count of subjects'])
+                jsonobj['header']['total'] = len(jsonobj['subjects'])
+                logger.info([file, 'adding complete flag and setting it to 0'])
+                jsonobj['header']['complete'] = 0
+                logger.info([file, 'adding tesseract version'])
+                jsonobj['header']['OCR engine'] = 'tesseract'
+                jsonobj['header']['OCR engine version'] = version
                 json.dump(jsonobj, open(filealtpath, "w"))
                 logger.info([file, ' Removing from batchsubmited folder '])
                 os.remove(filepath)
@@ -73,13 +91,17 @@ def cron_jobs():
                         logger.info(
                             [file, ' Received status code: ',
                                    resp.status_codes])
-                    jsonobj['subjects'][elem]['complete'] = 'yes'
+                    jsonobj['subjects'][elem]['status'] = 'complete'
                     logger.info([file, ' Incrementing complete count '])
-                    jsonobj['header']["Complete"] = int(
-                        jsonobj['header']["Complete"]) + 1
+                    jsonobj['header']['modified time'] = time.strftime("%c")
+                    jsonobj['header']["complete"] = int(
+                        jsonobj['header']["complete"]) + 1
                     json.dump(jsonobj, open(filealtpath, "w"))
-                logger.info([file, ' Modifying status to Complete '])
-                jsonobj['header']['status'] = 'Complete'
+                logger.info([file, ' Modifying status to error or complete '])
+                if respjson['messages']:
+                    jsonobj['header']['status'] = 'error'
+                else:
+                    jsonobj['header']['status'] = 'complete'
                 logger.info([file, ' Dumping json output '])
                 json.dump(jsonobj, open(filealtpath, "w"))
             except Exception as cronexcept:

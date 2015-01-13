@@ -21,3 +21,10 @@ def get_property(prop):
     """
     import config
     return config.get(prop)
+
+def get_tesseract_version():
+    import subprocess
+    p = subprocess.Popen(["tesseract", "--version"], stdout=subprocess.PIPE)
+    out, err = p.communicate()
+    version = out.split("\n")[0]
+    return version
