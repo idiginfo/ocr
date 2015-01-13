@@ -40,21 +40,21 @@ def cron_jobs():
                 json.dump(jsonobj, open(filealtpath, "w"))
                 logger.info([file, ' Removing from batchsubmited folder '])
                 os.remove(filepath)
-                for elem in jsonobj['list']:
+                for elem in jsonobj['subjects']:
                     logger.info([file, ' Working on identifier ', elem])
                     logger.info([file, 'Building URL for ', elem])
                     iden = elem
-                    url = jsonobj['list'][elem]['url']
+                    url = jsonobj['subjects'][elem]['url']
                     try:
-                        crop = jsonobj['list'][elem]['crop']
+                        crop = jsonobj['subjects'][elem]['crop']
                     except KeyError as ke:
                         logger.info(
                             [file, elem, ' has no crop value set.'
                              ' Setting to default - no'])
                         crop = 'no'
                     response = "json"
-                    jsonobj['list'][elem]['messages'] = []
-                    jsonobj['list'][elem]['ocr'] = ''
+                    jsonobj['subjects'][elem]['messages'] = []
+                    jsonobj['subjects'][elem]['ocr'] = ''
                     buildurl = "http://localhost:5000/ocroutput?identifier="\
                         "{0}&url={1}&crop={2}&response={3}".format(
                             iden, url, crop, response)
@@ -63,17 +63,17 @@ def cron_jobs():
                     if resp.status_code == 200:
                         respjson = resp.json()
                         for message in respjson['messages']:
-                            jsonobj['list'][elem][
+                            jsonobj['subjects'][elem][
                                 'messages'].append(message)
-                        jsonobj['list'][elem]['ocr'] = respjson['ocr']
+                        jsonobj['subjects'][elem]['ocr'] = respjson['ocr']
                     else:
-                        jsonobj['list'][elem]['messages'].append(
+                        jsonobj['subjects'][elem]['messages'].append(
                             "Response code from ocr.dev.morphbank.net {0}"
                             .format(resp.status_code))
                         logger.info(
                             [file, ' Received status code: ',
                                    resp.status_codes])
-                    jsonobj['list'][elem]['complete'] = 'yes'
+                    jsonobj['subjects'][elem]['complete'] = 'yes'
                     logger.info([file, ' Incrementing complete count '])
                     jsonobj['header']["Complete"] = int(
                         jsonobj['header']["Complete"]) + 1

@@ -42,9 +42,9 @@ def validate_json_format(fileloc):
     try:
         errorlist = []
         jsonobj = json.load(open(fileloc, 'r'))
-        if jsonobj.get('list', False):
-            for obj in jsonobj['list']:
-                url = jsonobj['list'][obj].get("url", None)
+        if jsonobj.get('subjects', False):
+            for obj in jsonobj['subjects']:
+                url = jsonobj['subjects'][obj].get("url", None)
                 if url is None or url == '':
                     errorlist.append(str(obj) + " has no url field")
         return errorlist
