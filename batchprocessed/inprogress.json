@@ -1,33 +1,39 @@
 {
   "header": {
-    "complete": 1,
-    "total": 3,
-    "status": "in progress"
+    "OCR engine": "tesseract 3.03",
+    "complete": 2,
+    "modified time": "Wed Jan 14 16:03:14 2015",
+    "start time": "Wed Jan 14 16:03:01 2015",
+    "status": "in progress",
+    "total": 4
   },
   "subjects": {
     "000009501": {
-      "complete": "no",
       "crop": "left",
-      "ocr": "",
+      "messages": [],
+      "ocr": "   R\u2018 K. Godfrey Herbarlum (FSU)  H1 I! U HI  HERBARIUM                                                                                                                                      *000009501*   1730:: IDA STA TI? \"WWW? SETY        PLANTSOF: FLORIDA COUNTY: mm  Pinus palustris Mill .  DOG ISLAND: Single tree located by the Caskies near hardwood hammock N\\ of the old corral on the East End. Terminal buds silvery white; cones over 17 cm long.     6 February 1982 Loran C. Anderson No. 5658  HERBARIUM ()F l\u2018LORlDA STATE UNIVERSITY  ",
+      "status": "complete",
       "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009501.jpg&ImageType=jpeg&inbrowser=yes"
     },
     "000009502": {
-      "complete": "no",
       "crop": "left",
-      "ocr": "",
+      "messages": [],
+      "ocr": "                           HERB\u2019ARIUM  \ufb02$ nu 1&3733  I L \u2019 IDA STATE UNIVERSITY  HE RBARIUM OF FLOREDA STATE UNIVERSITY, TALLAHASSEE  COUNTY: LEON       PLANTS OF: FLORIDA                              PINUS PALUSTRIS Mill.  Tree ca 10 m tall. Longleaf pine\u2014 scrub oak ridge, Apalachicola National Forest, by Spring Hill Road, S of Tallahassee, near entrance to Lost Lake.      RU) DATE; ll March 1983  COLLECTED BY: R- K- Godfrey N0. 803.27 051mg  R. K. Godfrey Herbarium  W n m i  *00(3009 502*                                                                                                                                     ",
+      "status": "complete",
       "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009502.jpg&ImageType=jpeg&inbrowser=yes"
     },
     "000009503": {
-      "complete": "no",
       "crop": "left",
+      "messages": [],
       "ocr": "",
+      "status": "pending",
       "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009503.jpg&ImageType=jpeg&inbrowser=yes"
     },
     "000009504": {
-      "complete": "yes",
       "crop": "left",
       "messages": [],
-      "ocr": "   R. K. Godfrey Herbarium (FSU)  lll lllll Ill l                 FLORA OF FLORIDA  Pinus pa/ustris Mill.     PUTNAM C0: Common in sandy soils assocmted with Turkey Oak/Longleaf Pine/Wirgrass community just E of Hook Luke and W of Deep Luke; 0.3 miles E of Swisher Lake Trail, 1 mile S of SR 100. 3 miles SE of Putnam Hall, Fl, & 6 miles SW of Florahome, Fl. Sec 12. R23E. T95; Putnam Hall Quad       CCCIl R. Slaughter 7 Date: 24 June 2001 n0.212,67}{       ",
+      "ocr": "",
+      "status": "pending",
       "url": "http://herbarium.bio.fsu.edu/download-image.php?Image=images/herbarium/jpegs/000009504.jpg&ImageType=jpeg&inbrowser=yes"
     }
   }
