@@ -84,6 +84,7 @@ def batchocr():
         return render_template("batch.html")
     else:
         app.config['DISALLOWED_JSON_FILENAME'].append(fileupload.filename)
+        app.config['DIRECTORY_LISTING'].append(app.config['OCR_STATUS']+fileupload.filename)
     feedback = jsonvalidator.validate_json(fileupload)
     if feedback:
         iden = "http://ocr.dev.morphbank.net/status/" + feedback
