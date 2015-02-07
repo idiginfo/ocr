@@ -26,9 +26,8 @@ def cron_jobs():
     mainhandler = logging.FileHandler("/home/shiva/logs/cron.out", mode="a")
     logger.addHandler(mainhandler)
     logger.setLevel(logging.DEBUG)
-    import utils
     version = utils.get_tesseract_version()
-    logger.info(["tesseract version:",version])
+    #logger.info(["tesseract version:",version])
     for root, dirnames, files in os.walk(BATCHSUBMITED):
         for file in files:
             try:
@@ -45,7 +44,6 @@ def cron_jobs():
                 logger.info([file, 'adding start and modified time to header'])
                 jsonobj['header']['start time'] = starttime
                 jsonobj['header']['modified time'] = modifiedtime
-                jsonobj['header']
                 logger.info([file, 'adding status to in progress'])
                 jsonobj['header']['status'] = "in progress"
                 logger.info([file, 'adding total count of subjects'])
@@ -53,8 +51,8 @@ def cron_jobs():
                 logger.info([file, 'adding complete flag and setting it to 0'])
                 jsonobj['header']['complete'] = 0
                 logger.info([file, 'adding tesseract version'])
-                jsonobj['header']['OCR engine'] = 'tesseract'
-                jsonobj['header']['OCR engine version'] = version
+                jsonobj['header']['OCR engine'] = version
+                #jsonobj['header']['OCR engine version'] = version
                 json.dump(jsonobj, open(filealtpath, "w"))
                 logger.info([file, ' Removing from batchsubmited folder '])
                 os.remove(filepath)
@@ -73,11 +71,10 @@ def cron_jobs():
                     response = "json"
                     jsonobj['subjects'][elem]['messages'] = []
                     jsonobj['subjects'][elem]['ocr'] = ''
-                    buildurl = "http://localhost:5000/ocroutput?identifier="\
-                        "{0}&url={1}&crop={2}&response={3}".format(
-                            iden, url, crop, response)
+                    payload = {'identifier': iden, 'url': url,'crop':crop,'response':response}
+                    buildurl = "http://ocr.dev.morphbank.net/ocroutput"
                     logger.info([file, ' URL built: ', buildurl])
-                    resp = requests.get(buildurl)
+                    resp = requests.get(buildurl,params=payload)
                     if resp.status_code == 200:
                         respjson = resp.json()
                         for message in respjson['messages']:
@@ -96,14 +93,16 @@ def cron_jobs():
                     jsonobj['header']['modified time'] = time.strftime("%c")
                     jsonobj['header']["complete"] = int(
                         jsonobj['header']["complete"]) + 1
-                    json.dump(jsonobj, open(filealtpath, "w"))
+                    with open(filealtpath, "w") as fp:
+                        json.dump(jsonobj, fp)
                 logger.info([file, ' Modifying status to error or complete '])
                 if respjson['messages']:
                     jsonobj['header']['status'] = 'error'
                 else:
                     jsonobj['header']['status'] = 'complete'
                 logger.info([file, ' Dumping json output '])
-                json.dump(jsonobj, open(filealtpath, "w"))
+                with open(filealtpath, "w") as fp:
+                        json.dump(jsonobj, fp)
             except Exception as cronexcept:
                 logger.info([file, 'Exception: {0}'.format(cronexcept)])
                 logger.info([file, traceback.format_exc()])
