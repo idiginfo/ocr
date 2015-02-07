@@ -24,7 +24,6 @@ def get_property(prop):
 
 def get_tesseract_version():
     import subprocess
-    p = subprocess.Popen(["tesseract", "--version"], stdout=subprocess.PIPE)
-    out, err = p.communicate()
-    version = out.split("\n")[0]
+    output = subprocess.check_output("tesseract --version; exit 0",stderr=subprocess.STDOUT,shell=True)
+    version = output.decode('utf-8').split("\n")[0]
     return version
