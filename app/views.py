@@ -75,23 +75,27 @@ def batchocr():
     defining url for batch ocr submission
     """
     fileupload = request.files.get('file', None)
+    resp = request.args.get('response', 0)
     if fileupload is None or fileupload.filename == '':
         flash('require a json file to start batch ocr')
-        return render_template("batch.html")
+        return abort(400) if resp else render_template("batch.html")
     if fileupload.filename in app.config['DISALLOWED_JSON_FILENAME']:
         flash("Cannot accept this file name. File name already exist."
               "Please change your file name and resubmit.")
-        return render_template("batch.html")
+        return abort(400) if resp else render_template("batch.html")
     else:
         app.config['DISALLOWED_JSON_FILENAME'].append(fileupload.filename)
-        app.config['DIRECTORY_LISTING'].append(app.config['OCR_STATUS']+fileupload.filename)
+        app.config['DIRECTORY_LISTING'].append(
+            app.config['OCR_STATUS'] + fileupload.filename)
     feedback = jsonvalidator.validate_json(fileupload)
     if feedback:
         iden = "http://ocr.dev.morphbank.net/status/" + feedback
-        return render_template('batchocroutput.html', iden=iden,
-                               filename=feedback)
+        return render_template(
+            '202.html', iden=iden, filename=feedback), 202 if resp else\
+            render_template('batchocroutput.html', iden=iden,
+                            filename=feedback)
     else:
-        return render_template("batch.html")
+        return abort(202) if resp else render_template("batch.html")
 
 
 @app.route('/batch')
