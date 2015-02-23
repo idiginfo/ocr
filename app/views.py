@@ -78,11 +78,13 @@ def batchocr():
     resp = request.args.get('response', 0)
     if fileupload is None or fileupload.filename == '':
         flash('require a json file to start batch ocr')
-        return abort(400) if resp else render_template("batch.html")
+        return render_template('400.html'), 400\
+            if resp else render_template("batch.html")
     if fileupload.filename in app.config['DISALLOWED_JSON_FILENAME']:
         flash("Cannot accept this file name. File name already exist."
               "Please change your file name and resubmit.")
-        return abort(400) if resp else render_template("batch.html")
+        return render_template('400.html'), 400\
+            if resp else render_template("batch.html")
     else:
         app.config['DISALLOWED_JSON_FILENAME'].append(fileupload.filename)
         app.config['DIRECTORY_LISTING'].append(
@@ -95,7 +97,8 @@ def batchocr():
             render_template('batchocroutput.html', iden=iden,
                             filename=feedback)
     else:
-        return abort(202) if resp else render_template("batch.html")
+        return render_template(
+            '202.html'), 202 if resp else render_template("batch.html")
 
 
 @app.route('/batch')
