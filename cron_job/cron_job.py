@@ -96,10 +96,10 @@ def cron_jobs():
                     with open(filealtpath, "w") as fp:
                         json.dump(jsonobj, fp)
                 logger.info([file, ' Modifying status to error or complete '])
-                if respjson['messages']:
-                    jsonobj['header']['status'] = 'error'
-                else:
-                    jsonobj['header']['status'] = 'complete'
+                # if respjson['messages']:
+                #    jsonobj['header']['status'] = 'error'
+                # else:
+                jsonobj['header']['status'] = 'complete'
                 logger.info([file, ' Dumping json output '])
                 with open(filealtpath, "w") as fp:
                         json.dump(jsonobj, fp)
