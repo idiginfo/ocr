@@ -134,3 +134,29 @@ def directorylisting():
         return redirect("/status/" + iden)
     return render_template("status.html",
                            displayfiles=app.config['DIRECTORY_LISTING'])
+
+def requires_auth(function_to_decorate):
+    def wrapper(*args, **kw):
+        apikey = request.headers.get('API-KEY',0)
+        if apikey:
+            if apikey == 't$p480UAJ5v8P=ifcE23&hpM?#+&r3':
+                return function_to_decorate(*args, **kw)
+        abort(401)
+    return wrapper
+
+@app.route('/delete', methods=['GET', 'POST'])
+@requires_auth
+def delete_file(*args, **kwargs):
+    filename = request.args.get('file', 0)
+    if filename:
+        filealtpath = os.path.join(app.config['BATCHSUBMITED'], filename)
+        try:
+            app.config['DISALLOWED_JSON_FILENAME'].remove(filename)
+            app.config['DIRECTORY_LISTING'].remove(
+                app.config['OCR_STATUS'] + filename)
+            os.remove(filealtpath)
+        except OSError:
+            pass
+        except ValueError:
+            pass
+    return Response('successfully deleted file', 200)
