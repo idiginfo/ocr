@@ -78,12 +78,12 @@ def batchocr():
     resp = request.args.get('response', 0)
     if fileupload is None or fileupload.filename == '':
         flash('require a json file to start batch ocr')
-        return render_template('400.html'), 400\
+        return (render_template('400.html'), 400)\
             if resp else render_template("batch.html")
     if fileupload.filename in app.config['DISALLOWED_JSON_FILENAME']:
         flash("Cannot accept this file name. File name already exist."
               "Please change your file name and resubmit.")
-        return render_template('400.html'), 400\
+        return (render_template('400.html'), 400)\
             if resp else render_template("batch.html")
     else:
         app.config['DISALLOWED_JSON_FILENAME'].append(fileupload.filename)
@@ -92,13 +92,13 @@ def batchocr():
     feedback = jsonvalidator.validate_json(fileupload)
     if feedback:
         iden = "http://ocr.dev.morphbank.net/status/" + feedback
-        return render_template(
-            '202.html', iden=iden, filename=feedback), 202 if resp else\
+        return (render_template(
+            '202.html', iden=iden, filename=feedback), 202) if resp else\
             render_template('batchocroutput.html', iden=iden,
                             filename=feedback)
     else:
-        return render_template(
-            '202.html'), 202 if resp else render_template("batch.html")
+        return (render_template(
+            '202.html'), 202) if resp else render_template("batch.html")
 
 
 @app.route('/batch')
@@ -135,18 +135,29 @@ def directorylisting():
     return render_template("status.html",
                            displayfiles=app.config['DIRECTORY_LISTING'])
 
+
 def requires_auth(function_to_decorate):
+    """
+    authentication wrapper using an apikey
+    """
     def wrapper(*args, **kw):
-        apikey = request.headers.get('API-KEY',0)
+        """
+        takes care of generating 401 if required
+        """
+        apikey = request.headers.get('API-KEY', 0)
         if apikey:
             if apikey == 't$p480UAJ5v8P=ifcE23&hpM?#+&r3':
                 return function_to_decorate(*args, **kw)
         abort(401)
     return wrapper
 
+
 @app.route('/delete', methods=['GET', 'POST'])
 @requires_auth
 def delete_file(*args, **kwargs):
+    """
+    responsible for deleting a file from server
+    """
     filename = request.args.get('file', 0)
     if filename:
         filealtpath = os.path.join(app.config['BATCHSUBMITED'], filename)
