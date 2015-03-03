@@ -75,7 +75,9 @@ def batchocr():
     defining url for batch ocr submission
     """
     fileupload = request.files.get('file', None)
-    resp = request.args.get('response', 0)
+    resp = request.form.get('response')
+    if resp is None:
+        resp = request.args.get('response')
     if fileupload is None or fileupload.filename == '':
         flash('require a json file to start batch ocr')
         return (render_template('400.html'), 400)\
