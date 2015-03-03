@@ -2,7 +2,7 @@
 This is place where you define all URL types application can be accessed with
 """
 
-from flask import render_template, flash, request, redirect
+from flask import render_template, flash, request, redirect, Response
 from flask import jsonify, session, get_flashed_messages, abort
 from app import app
 from businesslogic import jsonvalidator, tesseractdata
@@ -158,7 +158,9 @@ def delete_file(*args, **kwargs):
     """
     responsible for deleting a file from server
     """
-    filename = request.args.get('file', 0)
+    filename = request.form.get('file')
+    if filename is None:
+        filename = request.args.get('file')
     if filename:
         filealtpath = os.path.join(app.config['BATCHSUBMITED'], filename)
         try:
