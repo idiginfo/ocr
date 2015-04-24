@@ -87,7 +87,7 @@ def cron_jobs():
                             .format(resp.status_code))
                         logger.info(
                             [file, ' Received status code: ',
-                                   resp.status_codes])
+                                   resp.status_code])
                     jsonobj['subjects'][elem]['status'] = 'complete'
                     logger.info([file, ' Incrementing complete count '])
                     jsonobj['header']['modified time'] = time.strftime("%c")
