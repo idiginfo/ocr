@@ -27,8 +27,10 @@ def tesseractthis(identifier, fileloc, cropit):
             flash('Exception in OCR given file.')
             return False
         else:
-            return open(outloc + ".txt", "rb").read().decode(
+            returnval = open(outloc + ".txt", "rb").read().decode(
                 'utf-8').replace("\n", " ")
+            os.remove(outloc)
+            return returnval
     else:
         return "not a jpg file"
 
@@ -47,14 +49,18 @@ def tesseractinput(identifier, urlloc, fileupload, cropit):
             return False
         elif fileupload and utils.allowed_file(fileupload.filename,'ALLOWED_EXTENSIONS'):
             fileupload.save(fileloc)
-            return tesseractthis(identifier, fileloc, cropit)
+            returnval = tesseractthis(identifier, fileloc, cropit)
+            os.remove(fileloc)
+            return returnval
         elif urlloc:
             try:
                 resp = requests.get(urlloc)
                 if resp.status_code == 200:
                     filehandler.write(resp.content)
                     filehandler.close()
-                    return tesseractthis(identifier, fileloc, cropit)
+                    returnval = tesseractthis(identifier, fileloc, cropit)
+                    os.remove(fileloc)
+                    return returnval
                 else:
                     flash('Image not found at given URL')
                     flash('Response code: ' + str(resp.status_code))
