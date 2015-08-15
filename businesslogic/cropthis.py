@@ -35,6 +35,7 @@ def cropthis(imageloc, xval, yval):
         rtnval = subprocess.call(['convert', oldfilename, '-crop',
                                   '+{0}+{1}'.format(percentx, percenty),
                                   imageloc])
+        os.remove(oldfilename)
         if rtnval != 0:
             return False
         else:
