@@ -24,6 +24,7 @@ def cropthis(imageloc, xval, yval):
         dim = open(dimfile, 'r').read().strip().replace('"', '').split(" ")
         percentx = (xval / 100) * int(dim[0])
         percenty = (yval / 100) * int(dim[1])
+        os.remove(dimfile)
 #        rtnval = subprocess.call(['convert', oldfilename, '-crop',
 #                            '+{0}+{1}'.format(percentx, percenty),
 #                            '-brightness-contrast', '0x50',imageloc])
