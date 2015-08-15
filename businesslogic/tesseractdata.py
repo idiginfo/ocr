@@ -29,7 +29,7 @@ def tesseractthis(identifier, fileloc, cropit):
         else:
             returnval = open(outloc + ".txt", "rb").read().decode(
                 'utf-8').replace("\n", " ")
-            os.remove(outloc)
+            os.remove(outloc+".txt")
             return returnval
     else:
         return "not a jpg file"
