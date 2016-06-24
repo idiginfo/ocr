@@ -140,7 +140,7 @@ def directorylisting():
     """
     iden = request.form.get('file name')
     if iden is not None:
-        return redirect("/status/" + iden)
+        return redirect(app.config['OCR_STATUS'] + "/" + iden)
     return render_template("status.html",
                            displayfiles=app.config['DIRECTORY_LISTING'])
 
