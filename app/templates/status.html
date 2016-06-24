@@ -18,7 +18,7 @@
 	{% endif %}
 		{% for file in displayfiles %}
 		</ul>
-			<li><a href={{ file }}>{{ file.split("/")[-1] }}</a></li>
+			<li><a href="{{ file }}">{{ file.split("/")[-1] }}</a></li>
 		</ul>
 		 {% endfor %}
 	</div>
