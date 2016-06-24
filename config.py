@@ -6,7 +6,7 @@ import os
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
 APP_LOC = '/data/web/ocr/'
-OCR_STATUS = 'status/'
+OCR_STATUS = '/status/'
 UPLOAD_FOLDER = '/data/web/ocr/images/'
 OUTPUT_FOLDER = '/data/web/ocr/ocrd/'
 LOG_FOLDER = '/data/web/ocr/ocrd/log/'
@@ -22,15 +22,15 @@ DIRECTORY_LISTING = []
 for subdir, dirs, files in os.walk(BATCHSUBMITED):
     for file in files:
         DISALLOWED_JSON_FILENAME.append(file)
-        DIRECTORY_LISTING.append(file)
+        DIRECTORY_LISTING.append(OCR_STATUS + file)
 for subdir, dirs, files in os.walk(BATCHINPROGRESS):
     for file in files:
         DISALLOWED_JSON_FILENAME.append(file)
-        DIRECTORY_LISTING.append(file)
+        DIRECTORY_LISTING.append(OCR_STATUS + file)
 for subdir, dirs, files in os.walk(BATCHPROCESSED):
     for file in files:
         DISALLOWED_JSON_FILENAME.append(file)
-        DIRECTORY_LISTING.append(file)
+        DIRECTORY_LISTING.append(OCR_STATUS + file)
 PROPAGATE_EXCEPTIONS = True
 
 
