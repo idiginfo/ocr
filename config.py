@@ -6,7 +6,7 @@ import os
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
 APP_LOC = '/data/web/ocr/'
-OCR_STATUS = 'https://ocr.idiginfo.org/status/'
+OCR_STATUS = 'status/'
 UPLOAD_FOLDER = '/data/web/ocr/images/'
 OUTPUT_FOLDER = '/data/web/ocr/ocrd/'
 LOG_FOLDER = '/data/web/ocr/ocrd/log/'
