@@ -17,12 +17,18 @@ def tesseractthis(identifier, fileloc, cropit):
     """
     outloc = app.config['OUTPUT_FOLDER'] + identifier
     outloc = os.path.abspath(outloc)
+    outlog = app.config['LOG_FOLDER'] + "image.log"
+    outlog = os.path.abspath(outlog)
     if fileloc.endswith(".jpg"):
         if cropit == "top":
             cropthis.cropthis(fileloc, 0, 8)
         elif cropit == "left":
             cropthis.cropthis(fileloc, 15, 0)
-        rtncode = subprocess.call(["tesseract", fileloc, outloc])
+        #rtncode = subprocess.call(["tesseract", fileloc, outloc, outlog])
+        f = open(outlog, 'w')
+        args = ["tesseract", fileloc, outloc]
+        proc = subprocess.Popen(args, stderr=f)
+        rtncode = proc.wait()
         if rtncode != 0:
             flash('Exception in OCR given file.')
             return False

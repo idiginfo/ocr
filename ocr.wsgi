@@ -2,10 +2,12 @@
 #import sys
 
 ##virtual env settings
-#activate_this = '/home/si13f/idiginfo-ocr/idiginfo/bin/activate_this.py'
-#execfile(activate_this,dict(__file__=activate_this))
+#activate_this = '/data/web/ocr/idiginfo/bin/activate_this.py'
+#exec(open(activate_this).read())
+#activate_this = '/data/web/ocr/idiginfo/bin/activate_this.py'
+#execfile(activate_this, dict(__file__=activate_this))
 
-#sys.path.insert(0, '/home/si13f/idiginfo-ocr/')
+#sys.path.insert(0, '/data/web/ocr/idiginfo/*')
 #sys.path.append('/home/si13f/idiginfo-ocr/app/')
 #sys.path.append('/home/si13f/idiginfo-ocr/idiginfo/*')
 

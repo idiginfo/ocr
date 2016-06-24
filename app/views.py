@@ -7,7 +7,12 @@ from flask import jsonify, session, get_flashed_messages, abort
 from app import app
 from businesslogic import jsonvalidator, tesseractdata
 import json
+import sys
 import os
+import traceback
+import requests
+import psutil
+from os import path
 
 
 @app.route('/')
@@ -93,7 +98,7 @@ def batchocr():
             app.config['OCR_STATUS'] + fileupload.filename)
     feedback = jsonvalidator.validate_json(fileupload)
     if feedback:
-        iden = "http://ocr.dev.morphbank.net/status/" + feedback
+        iden = "https://ocr.dev.morphbank.net/status/" + feedback
         return (render_template(
             '202.html', iden=iden, filename=feedback), 202) if resp else\
             render_template('batchocroutput.html', iden=iden,
@@ -117,14 +122,16 @@ def status(filename):
     defining url for status page
     """
     filepath = os.path.join(app.config['BATCHPROCESSED'], filename)
+    fileinprogresspath = os.path.join(app.config['BATCHINPROGRESS'], filename)
     filealtpath = os.path.join(app.config['BATCHSUBMITED'], filename)
     if os.path.isfile(filepath):
         return jsonify(json.load(open(filepath, 'r')))
     elif os.path.isfile(filealtpath):
         return jsonify(json.load(open(filealtpath, 'r')))
+    elif os.path.isfile(fileinprogresspath):
+        return jsonify(json.load(open(fileinprogresspath, 'r')))
     else:
         abort(404)
-
 
 @app.route('/status', methods=['GET', 'POST'])
 def directorylisting():
@@ -164,7 +171,12 @@ def delete_file(*args, **kwargs):
     if filename is None:
         filename = request.args.get('file')
     if filename:
-        filealtpath = os.path.join(app.config['BATCHSUBMITED'], filename)
+        if(os.path.isfile("/data/web/ocr/batchsubmited/"+filename)):
+            filealtpath = os.path.join(app.config['BATCHSUBMITED'], filename)
+        elif(os.path.isfile("/data/web/ocr/batchprocessed/"+filename)):
+            filealtpath = os.path.join(app.config['BATCHPROCESSED'], filename)
+        elif(os.path.isfile("/data/web/ocr/batchinprogress/"+filename)):
+            filealtpath = os.path.join(app.config['BATCHINPROGRESS'], filename)
         try:
             app.config['DISALLOWED_JSON_FILENAME'].remove(filename)
             app.config['DIRECTORY_LISTING'].remove(

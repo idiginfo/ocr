@@ -6,11 +6,13 @@ import os
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
 APP_LOC = '/data/web/ocr/'
-OCR_STATUS = 'http://ocr.dev.morphbank.net/status/'
+OCR_STATUS = 'https://ocr.idiginfo.org/status/'
 #OCR_STATUS = 'http://localhost:5000/status/'
 UPLOAD_FOLDER = '/data/web/ocr/images/'
 OUTPUT_FOLDER = '/data/web/ocr/ocrd/'
+LOG_FOLDER = '/data/web/ocr/ocrd/log/'
 BATCHSUBMITED = '/data/web/ocr/batchsubmited/'
+BATCHINPROGRESS = '/data/web/ocr/batchinprogress'
 BATCHPROCESSED = '/data/web/ocr/batchprocessed/'
 TEMP = '/data/web/ocr/temp/'
 ALLOWED_EXTENSIONS = ['jpg']
@@ -19,6 +21,10 @@ DISALLOWED_JSON_FILENAME = ['inprogress.json', 'sampleformat.json']
 DIRECTORY_LISTING = []
 # get list of disallowed file names
 for subdir, dirs, files in os.walk(BATCHSUBMITED):
+    for file in files:
+        DISALLOWED_JSON_FILENAME.append(file)
+        DIRECTORY_LISTING.append(OCR_STATUS + file)
+for subdir, dirs, files in os.walk(BATCHINPROGRESS):
     for file in files:
         DISALLOWED_JSON_FILENAME.append(file)
         DIRECTORY_LISTING.append(OCR_STATUS + file)
