@@ -22,15 +22,15 @@ DIRECTORY_LISTING = []
 for subdir, dirs, files in os.walk(BATCHSUBMITED):
     for file in files:
         DISALLOWED_JSON_FILENAME.append(file)
-        DIRECTORY_LISTING.append(url_for(OCR_STATUS + file, _external=True, _scheme='https'))
+        DIRECTORY_LISTING.append(url_for("/" + OCR_STATUS + file, _external=True, _scheme='https'))
 for subdir, dirs, files in os.walk(BATCHINPROGRESS):
     for file in files:
         DISALLOWED_JSON_FILENAME.append(file)
-        DIRECTORY_LISTING.append(url_for(OCR_STATUS + file, _external=True, _scheme='https'))
+        DIRECTORY_LISTING.append(url_for("/" + OCR_STATUS + file, _external=True, _scheme='https'))
 for subdir, dirs, files in os.walk(BATCHPROCESSED):
     for file in files:
         DISALLOWED_JSON_FILENAME.append(file)
-        DIRECTORY_LISTING.append(url_for(OCR_STATUS + file, _external=True, _scheme='https'))
+        DIRECTORY_LISTING.append(url_for("/" + OCR_STATUS + file, _external=True, _scheme='https'))
 PROPAGATE_EXCEPTIONS = True
 
 
