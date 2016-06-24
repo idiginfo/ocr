@@ -118,6 +118,7 @@ def batch():
 
 @app.route('/status/<filename>', methods=['GET', 'POST'])
 def status(filename):
+    print "Filename %s." % filename
     """
     defining url for status page
     """
