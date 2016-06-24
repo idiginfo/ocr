@@ -72,7 +72,7 @@ def cron_jobs():
                     jsonobj['subjects'][elem]['messages'] = []
                     jsonobj['subjects'][elem]['ocr'] = ''
                     payload = {'identifier': iden, 'url': url,'crop':crop,'response':response}
-                    buildurl = "http://ocr.idiginfo.org/ocroutput"
+                    buildurl = "https://ocr.idiginfo.org/ocroutput"
                     logger.info([file, ' URL built: ', buildurl])
                     resp = requests.get(buildurl,params=payload)
                     if resp.status_code == 200:

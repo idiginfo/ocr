@@ -96,7 +96,7 @@ def process_files(filealtpath):
             jsonobj['subjects'][elem]['messages'] = []
             payload = {'identifier': iden, 'url': url,'crop':crop,'response':response}
             payload = {'identifier': iden, 'url': url,'crop':crop,'response':response}
-            buildurl = "http://ocr.idiginfo.org/ocroutput"
+            buildurl = "https://ocr.idiginfo.org/ocroutput"
             logger.info([filealtpath, ' URL built: ', buildurl])
             resp = requests.get(buildurl,params=payload)
             respjson = resp.json()
