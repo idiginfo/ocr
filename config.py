@@ -5,6 +5,7 @@ import os
 
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
+app.config.update(dict(PREFERRED_URL_SCHEME = 'https'))
 APP_LOC = '/data/web/ocr/'
 OCR_STATUS = 'status/'
 UPLOAD_FOLDER = '/data/web/ocr/images/'
