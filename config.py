@@ -20,15 +20,15 @@ DISALLOWED_JSON_FILENAME = ['inprogress.json', 'sampleformat.json']
 DIRECTORY_LISTING = []
 # get list of disallowed file names
 for subdir, dirs, files in os.walk(BATCHSUBMITED):
-    for file in files:
+    for file in files if not file[0] == '.':
         DISALLOWED_JSON_FILENAME.append(file)
         DIRECTORY_LISTING.append(OCR_STATUS + file)
 for subdir, dirs, files in os.walk(BATCHINPROGRESS):
-    for file in files:
+    for file in files if not file[0] == '.':
         DISALLOWED_JSON_FILENAME.append(file)
         DIRECTORY_LISTING.append(OCR_STATUS + file)
 for subdir, dirs, files in os.walk(BATCHPROCESSED):
-    for file in files:
+    for file in files if not file[0] == '.':
         DISALLOWED_JSON_FILENAME.append(file)
         DIRECTORY_LISTING.append(OCR_STATUS + file)
 PROPAGATE_EXCEPTIONS = True
