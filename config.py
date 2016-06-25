@@ -27,12 +27,12 @@ for subdir, dirs, files in os.walk(BATCHSUBMITED):
             DIRECTORY_LISTING.append(OCR_STATUS + file)
 for subdir, dirs, files in os.walk(BATCHINPROGRESS):
     for file in files:
-        f file.endswith(('.json')):
+        if file.endswith(('.json')):
             DISALLOWED_JSON_FILENAME.append(file)
             DIRECTORY_LISTING.append(OCR_STATUS + file)
 for subdir, dirs, files in os.walk(BATCHPROCESSED):
     for file in files:
-        f file.endswith(('.json')):
+        if file.endswith(('.json')):
             DISALLOWED_JSON_FILENAME.append(file)
             DIRECTORY_LISTING.append(OCR_STATUS + file)
 PROPAGATE_EXCEPTIONS = True
