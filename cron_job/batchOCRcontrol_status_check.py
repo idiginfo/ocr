@@ -12,7 +12,7 @@ import psutil
 from os import path
 import logging, time
 logger = logging.getLogger("main")
-mainhandler = logging.FileHandler("/data/logs/cronstatus.out", mode="a")
+mainhandler = logging.FileHandler("/data/logs/ocrcronstatus.log", mode="a")
 logger.addHandler(mainhandler)
 logger.setLevel(logging.DEBUG)
 BATCHINPROGRESS = "/data/web/ocr/batchinprogress"
@@ -27,7 +27,7 @@ def get_oldest_file(path):
 if len(os.listdir(BATCHINPROGRESS)) == 0:
     os.system('sudo kill -9' + str(os.system('pgrep -f cron_job/batchOCRcontrol.py')))
     print("The process is not running");
-    os.system('/data/web/ocr/idiginfo/bin/python3.4 /data/web/ocr/cron_job/batchOCRcontrol.py &> /var/log/ocrcron.txt')
+    os.system('/data/web/ocr/idiginfo/bin/python3.4 /data/web/ocr/cron_job/batchOCRcontrol.py &> /var/log/ocrcron.log')
 else:
     filepath = get_oldest_file(BATCHINPROGRESS)
     print(filepath);
@@ -45,7 +45,7 @@ else:
         logger.info('About to restart the cron')
         os.system('sudo kill -9' + str(os.system('pgrep -f cron_job/batchOCRcontrol.py')))
         logger.info('Process killed')
-        os.system('/data/web/ocr/idiginfo/bin/python3.4 /data/web/ocr/cron_job/batchOCRcontrol.py &> /var/log/ocrcron.txt')
+        os.system('/data/web/ocr/idiginfo/bin/python3.4 /data/web/ocr/cron_job/batchOCRcontrol.py &> /var/log/ocrcron.log')
     else:
         logger.info('Cron is still running!!')
 

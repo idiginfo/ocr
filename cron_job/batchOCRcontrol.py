@@ -20,7 +20,7 @@ oldest_file_path = ""
 inprogress_file_path = ""
 import logging, time
 logger = logging.getLogger("main")
-mainhandler = logging.FileHandler("/data/logs/cron.out", mode="a")
+mainhandler = logging.FileHandler("/data/logs/ocrcronout.log", mode="a")
 logger.addHandler(mainhandler)
 logger.setLevel(logging.DEBUG)
 
