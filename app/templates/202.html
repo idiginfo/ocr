@@ -1,0 +1,5 @@
+{% block content %}
+{% if filename %}
+<p>We have verified your json file. Everything looks good. Please find status of your results at <a href='/status/{{ filename }}'>/status/{{ filename }}</a></p>
+{% endif %}
+{% endblock %}

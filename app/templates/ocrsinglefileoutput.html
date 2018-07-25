@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<p><em>OCR: </em></p>
+<div>  ID: {{iden}}<br><br>  URL: {{url}}<br><br>
+</div>
+{% if ocrvalue %}
+<div class="ocrdata">{{ocrvalue}}
+</div>
+<!-- <div class="bagofwords">{{bagofwords}}
+</div> -->
+{% endif %}
+{% endblock %}
+{% block scripts %} activateMenu("ocr") {% endblock %}

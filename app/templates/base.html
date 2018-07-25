@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta charset="utf-8">
+{% if title %}
+<title>{{ title }} - iDigInfo</title> {% else %}
+<title>ocr - iDigInfo</title> {% endif %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css"
+	href="static/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="static/base.css">
+<script src="static/base.js"></script>
+</head>
+<body>
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img class="brandreflex"
+					src="/static/images/idiginfo_logo_header.png" alt></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active" id="homemenu"><a href="/home">Home</a></li>
+					<li id="ocrmenu"><a href="/ocr">OCR</a></li>
+					<li id="batchmenu"><a href="/batch">Batch OCR</a></li>
+					<li id="statusmenu"><a href="/status">Status</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+	<div class="container containerpad" role="main">
+		{% with messages = get_flashed_messages() %} {% if messages %}
+		<ul class="flash">
+			{% for message in messages %}
+			<li>{{ message }}</li> {% endfor %}
+		</ul>
+		{% endif %} {% endwith %} {% block content %}{% endblock %}
+	</div>
+	<div class="clearfix visible-xs-block"></div>
+	<div class="navbar navbar-default navbar-fixed-bottom footerfixed">
+	<!-- <footer class="footer"> -->
+		<div class="container">
+			<p class="text-muted">
+			<center>
+
+				Developed by <a
+					href="https://www.linkedin.com/pub/shiva-krishna-imminni/22/8bb/a1b">Shiva
+					Krishna Imminni</a> for <a href="https://www.idigbio.org/">iDigBio</a>
+				and <a href="https://www.idiginfo.org/projects">iDigInfo</a>.
+			</center>
+			</p>
+		</div>
+	<!-- </footer>	-->
+	</div>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<script>
+	{% block scripts %}{% endblock %}
+	</script>
+</body>
+</html>

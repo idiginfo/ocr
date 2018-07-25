@@ -1,0 +1,11 @@
+uwsgi
+markerlib
+defusedxml
+flask
+flask-wtf
+nltk
+python-openid
+requests
+textblob
+psutil
+python-dotenv

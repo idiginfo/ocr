@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash">
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% else %}
+      <div class="row">
+		<div class="col-lg-12">
+      		<p class="bg-success">We have verified your json file. Everything looks good. Please find status of your results at <a href='/status/{{ filename }}'>/status/{{ filename }}</a></p>
+      	</div>
+      </div>  
+      {% endif %}
+    {% endwith %}
+{% endblock %}
+{% block scripts %}
+activateMenu("batch")
+{% endblock %}
