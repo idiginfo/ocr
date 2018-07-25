@@ -1,4 +1,4 @@
-#!venv/bin/python
+#!venv/bin/python3
 """
 this is where we code cron jobs to schedule
 """
@@ -12,6 +12,8 @@ import psutil
 from functions import utils
 from dotenv import load_dotenv
 load_dotenv()
+
+print('test')
 
 APP_PATH = os.getenv('APP_PATH')
 DOMAIN = os.getenv('DOMAIN')

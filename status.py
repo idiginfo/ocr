@@ -1,4 +1,4 @@
-#!venv/bin/python
+#!venv/bin/python3
 """
 this is where we monitor the OCR process
 """
@@ -37,9 +37,9 @@ def get_oldest_file(path):
     except ValueError:
         return None
 if len(os.listdir(BATCHINPROGRESS)) == 0:
-    os.system('sudo kill -9' + str(os.system('pgrep -f cron/batch.py')))
+    os.system('sudo kill -9' + str(os.system('pgrep -f batch.py')))
     print("The process is not running");
-    os.system(f'{PYTHON_PATH} {BATCH_PATH} &> {CRON_LOG}')
+    os.system(f"{PYTHON_PATH} {BATCH_PATH} &> {CRON_LOG}")
 else:
     filepath = get_oldest_file(BATCHINPROGRESS)
     print(filepath);
@@ -55,7 +55,7 @@ else:
     logger.info(['The difference between two timestamp are', difference.total_seconds(), difference.days])
     if difference.total_seconds() > 600:
         logger.info('About to restart the cron')
-        os.system('sudo kill -9' + str(os.system('pgrep -f cron/batch.py')))
+        os.system('sudo kill -9' + str(os.system('pgrep -f batch.py')))
         logger.info('Process killed')
         os.system(f'{PYTHON_PATH} {BATCH_PATH} &> {CRON_LOG}')
     else:

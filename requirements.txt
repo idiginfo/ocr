@@ -1,4 +1,5 @@
 uwsgi
+psutil
 markerlib
 defusedxml
 flask
