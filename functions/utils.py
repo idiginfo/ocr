@@ -1,4 +1,4 @@
-#!../venv/bin/python
+#!../venv/bin/python3
 """
 this is where all utils hold
 """

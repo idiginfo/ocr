@@ -1,4 +1,4 @@
-#!../venv/bin/python
+#!../venv/bin/python3
 """
 this is business logic for cropping file
 """
