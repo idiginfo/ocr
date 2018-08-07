@@ -1,0 +1,15 @@
+[uwsgi]
+# /etc/uwsgi-emperor/vassals/ocr.ini
+module = nginxwsgi
+socket = /data/web/ocr/ocr.sock
+chmod-socket = 666
+master = true
+chdir = /data/web/ocr
+binary-path = /data/web/ocr/venv/bin/uwsgi
+virtualenv = /data/web/ocr/venv
+uid = www-data
+gid = www-data
+processes = 5
+threads = 1
+plugins = python3,logfile
+logger = file:/data/web/ocr/logs/uwsgi.log
