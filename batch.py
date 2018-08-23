@@ -13,8 +13,6 @@ from functions import utils
 from dotenv import load_dotenv
 load_dotenv()
 
-print('test')
-
 APP_PATH = os.getenv('APP_PATH')
 DOMAIN = os.getenv('DOMAIN')
 BATCHINPROGRESS = os.path.join(APP_PATH, 'batchinprogress')
