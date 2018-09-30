@@ -10,6 +10,8 @@ from werkzeug import secure_filename
 from flask import flash
 from app import app
 
+os.environ["OMP_THREAD_LIMIT"] = "1"
+
 def tesseractthis(identifier, fileloc, cropit):
     """
     entry point for ocr file we have
